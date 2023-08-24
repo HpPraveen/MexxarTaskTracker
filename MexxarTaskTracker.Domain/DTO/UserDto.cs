@@ -2,7 +2,7 @@
 
 namespace MexxarTaskTracker.Domain
 {
-    public class User : BaseEntity
+    public class UserDto : BaseEntityDto
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
@@ -10,8 +10,6 @@ namespace MexxarTaskTracker.Domain
         public string? Email { get; set; }
         public string? Password { get; set; }
 
-        public ICollection<ToDoList> ToDoLists { get; set; }
-
-        public ApplicationUser ApplicationUser { get; set; }
+        public ICollection<ToDoListDto> ToDoLists { get; set; }
     }
 }
