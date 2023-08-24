@@ -9,7 +9,7 @@ namespace MexxarTaskTracker.Infrastructure
     {
         public DbContext(DbContextOptions<DbContext> dbContext) : base(dbContext) { }
 
-        public DbSet<Domain.UserTask> Tasks { get; set; }
+        public DbSet<UserTask> Tasks { get; set; }
         public DbSet<ToDoList> ToDoLists { get; set; }
         //public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
