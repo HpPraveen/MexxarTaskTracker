@@ -51,6 +51,7 @@ namespace MexxarTaskTracker.Api.Controllers
                         Email = userDetail.Email,
                         SecurityStamp = Guid.NewGuid().ToString(),
                         UserName = userDetail.UserName,
+                        Name = userDetail.FirstName + " " + userDetail.LastName,
                         Gender = userDetail.Gender,
                         SysCreatedOn = DateTime.Now
                     };
@@ -109,7 +110,7 @@ namespace MexxarTaskTracker.Api.Controllers
         {
             try
             {
-                var user = await _userManager.FindByEmailAsync(loginDto.Email).ConfigureAwait(false);
+                var user = await _userManager.FindByNameAsync(loginDto.UserName).ConfigureAwait(false);
                 if (user != null && await _userManager.CheckPasswordAsync(user, loginDto.Password).ConfigureAwait(false))
                 {
                     var userRoles = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
@@ -136,7 +137,7 @@ namespace MexxarTaskTracker.Api.Controllers
 
                     var userDetails = new UserDto()
                     {
-                        UserName = user.UserName,
+                        UserName = user.Name,
                         Email = user.Email,
                         Gender = user.Gender,
                         BearerToken = bearerToken,
@@ -237,7 +238,7 @@ namespace MexxarTaskTracker.Api.Controllers
                                 Id = User.UserId,
                                 Email = User.Email,
                                 SecurityStamp = Guid.NewGuid().ToString(),
-                                UserName = User.UserName,
+                                Name = User.UserName,
                                 Gender = User.Gender,
                                 SysCreatedOn = DateTime.Now
                             };
@@ -322,7 +323,7 @@ namespace MexxarTaskTracker.Api.Controllers
                     _response.Result = new UserDto()
                     {
                         UserId = userDetails.Id,
-                        UserName = userDetails.UserName,
+                        UserName = userDetails.Name,
                         Email = userDetails.Email,
                         Gender = userDetails.Gender,
                     };
