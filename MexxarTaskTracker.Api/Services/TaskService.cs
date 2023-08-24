@@ -11,14 +11,15 @@ namespace MexxarTaskTracker.Api.Services
         private readonly IGenericUnitOfWork _genericUnitOfWork;
         private readonly IMapper _mapper;
         private readonly IHubContext<NotificationHub> _hubContext;
-
+        private readonly IToDoListService _toDoListService;
 
         public TaskService(IGenericUnitOfWork genericUnitOfWork,
-            IMapper mapper, IHubContext<NotificationHub> hubContext)
+            IMapper mapper, IHubContext<NotificationHub> hubContext, IToDoListService toDoListService)
         {
             _genericUnitOfWork = genericUnitOfWork;
             _mapper = mapper;
             _hubContext = hubContext;
+            _toDoListService = toDoListService;
         }
 
         public async Task SendTaskReminder(long taskId, long userId)
@@ -50,9 +51,31 @@ namespace MexxarTaskTracker.Api.Services
                 .FirstOrDefault();
             return _mapper.Map<UserTaskDto>(toDoListTaskDetails);
         }
+
         public object CreateUpdateTask(UserTaskDto userTaskDto)
         {
-            throw new NotImplementedException();
+            var userTask = _mapper.Map<UserTask>(userTaskDto);
+
+            if (userTask.Id > 0)
+            {
+                userTask.TaskStatus = userTaskDto.TaskStatus;
+                //_genericUnitOfWork.TaskRepository.Update(userTask);
+            }
+            else
+            {
+                var existingTask = GetTaskById(userTaskDto.Id);
+                if (existingTask == null)
+                {
+                    var toDoList = (ToDoListDto)_toDoListService.GetToDoListById(existingTask.ToDoListId);
+                    if (toDoList != null)
+                    {
+                        SendTaskReminder(toDoList.Id, toDoList.UserId);
+                        _genericUnitOfWork.TaskRepository.Insert(userTask);
+                    }
+                }
+            }
+            _genericUnitOfWork.Commit();
+            return _mapper.Map<UserTaskDto>(userTask);
         }
 
         public bool DeleteTask(long taskId)

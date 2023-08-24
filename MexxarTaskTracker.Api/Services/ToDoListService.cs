@@ -48,8 +48,8 @@ namespace MexxarTaskTracker.Api.Services
             }
             else
             {
-                var existingUser = GetToDoListById(toDoList.Id);
-                if (existingUser == null)
+                var existingTodoList = GetToDoListById(toDoList.Id);
+                if (existingTodoList == null)
                 {
                     _genericUnitOfWork.ToDoListepository.Insert(toDoList);
                 }
