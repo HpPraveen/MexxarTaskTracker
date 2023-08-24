@@ -81,12 +81,6 @@ namespace MexxarTaskTracker.Api.Controllers
 
                                 _response.DisplayMessage = "Successfully created new user";
                                 break;
-
-
-                                _response.Result = userDetail;
-
-                                _response.DisplayMessage = "Successfully created new vertical head";
-                                break;
                         }
                     }
                     else
