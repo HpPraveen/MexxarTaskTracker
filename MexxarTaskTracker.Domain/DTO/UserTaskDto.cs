@@ -1,6 +1,6 @@
 ﻿namespace MexxarTaskTracker.Domain
 {
-    public class TaskDto : BaseEntityDto
+    public class UserTaskDto : BaseEntityDto
     {
         public long ToDoListId { get; set; }
         public string? TaskName { get; set; }

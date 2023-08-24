@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MexxarTaskTracker.Domain;
 
 namespace MexxarTaskTracker.Api
 {
@@ -6,7 +7,9 @@ namespace MexxarTaskTracker.Api
     {
         public MappingConfig()
         {
-            //CreateMap<Invoice, InvoiceDto>().ReverseMap();
+            CreateMap<Domain.UserTask, UserTaskDto>().ReverseMap();
+            CreateMap<ToDoList, ToDoListDto>().ReverseMap();
+
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using static System.GC;
+﻿using Invoicing.Infrastructure.Repository;
+using MexxarTaskTracker.Domain;
+using static System.GC;
 
 namespace MexxarTaskTracker.Infrastructure.UnitOfWork
 {
@@ -37,6 +39,9 @@ namespace MexxarTaskTracker.Infrastructure.UnitOfWork
             SuppressFinalize(this);
         }
 
-        //public GenericRepository<Invoice> InvoiceRepository => new(_context);
+        public GenericRepository<User> UserRepository => new(_context);
+        public GenericRepository<Domain.UserTask> TaskRepository => new(_context);
+        public GenericRepository<ToDoList> ToDoListepository => new(_context);
+
     }
 }

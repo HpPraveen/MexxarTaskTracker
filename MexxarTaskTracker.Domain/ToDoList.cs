@@ -7,7 +7,7 @@ namespace MexxarTaskTracker.Domain
         public long UserId { get; set; }
         public string? ToDoListName { get; set; }
         public string? ToDoListDescription { get; set; }
-        public ICollection<Task> Tasks { get; set; }
+        public ICollection<UserTask> Tasks { get; set; }
 
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
