@@ -6,10 +6,10 @@ namespace MexxarTaskTracker.Infrastructure.UnitOfWork
 {
     public class GenericUnitOfWork : IGenericUnitOfWork
     {
-        private readonly DbContext _context;
+        private readonly ApplicationDbContext _context;
         private bool _disposed;
 
-        public GenericUnitOfWork(DbContext context)
+        public GenericUnitOfWork(ApplicationDbContext context)
         {
             _context = context;
         }
