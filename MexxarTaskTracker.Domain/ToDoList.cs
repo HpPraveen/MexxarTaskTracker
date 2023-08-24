@@ -11,6 +11,5 @@ namespace MexxarTaskTracker.Domain
 
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
-
     }
 }
