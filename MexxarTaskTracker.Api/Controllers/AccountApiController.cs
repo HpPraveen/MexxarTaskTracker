@@ -140,7 +140,6 @@ namespace MexxarTaskTracker.Api.Controllers
                         Email = user.Email,
                         Gender = user.Gender,
                         BearerToken = bearerToken,
-                        SysCreatedOn = user.SysCreatedOn,
                     };
 
                     _response.Result = userDetails;
@@ -326,7 +325,6 @@ namespace MexxarTaskTracker.Api.Controllers
                         UserName = userDetails.UserName,
                         Email = userDetails.Email,
                         Gender = userDetails.Gender,
-                        SysCreatedOn = userDetails.SysCreatedOn,
                     };
                 }
                 else

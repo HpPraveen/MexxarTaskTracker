@@ -82,7 +82,8 @@ namespace MexxarTaskTracker.Api.Services
         {
             try
             {
-                var existingTask = GetTaskById(taskId);
+                var existingTask = _mapper.Map<UserTask>(GetTaskById(taskId));
+
                 if (existingTask != null)
                 {
                     existingTask.IsDeleted = true;
