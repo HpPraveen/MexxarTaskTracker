@@ -1,4 +1,6 @@
 using MexxarTaskTracker.Api;
+using MexxarTaskTracker.Api.Services;
+using MexxarTaskTracker.Api.Services.Interfaces;
 using MexxarTaskTracker.Infrastructure.UnitOfWork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -9,9 +11,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 //Add services to the container.
 builder.Services.AddAutoMapper(typeof(MappingConfig).Assembly);
-builder.Services.AddScoped<IGenericUnitOfWork, GenericUnitOfWork>();
 builder.Services.AddDbContext<DbContext>(
                     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<IGenericUnitOfWork, GenericUnitOfWork>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITaskService, TaskService>();
+builder.Services.AddScoped<IToDoListService, ToDoListService>();
 
 //Adding Authentication
 builder.Services.AddAuthentication(options =>
