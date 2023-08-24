@@ -65,6 +65,8 @@ namespace MexxarTaskTracker.Api.Services
             {
                 return false;
             }
+
+            return false;
         }
     }
 }
