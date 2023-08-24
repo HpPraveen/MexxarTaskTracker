@@ -1,11 +1,14 @@
+using MexxarTaskTracker.Api;
+using MexxarTaskTracker.Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+//Add services to the container.
+builder.Services.AddAutoMapper(typeof(MappingConfig).Assembly);
+builder.Services.AddScoped<IGenericUnitOfWork, GenericUnitOfWork>();
 builder.Services.AddDbContext<DbContext>(
-        options => options.UseSqlServer("name=connectionStrings:DefaultConnection"));
-
+                    options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 builder.Services.AddControllers();
