@@ -1,9 +1,11 @@
 using MexxarTaskTracker.Api;
 using MexxarTaskTracker.Api.Services;
 using MexxarTaskTracker.Api.Services.Interfaces;
+using MexxarTaskTracker.Domain;
 using MexxarTaskTracker.Infrastructure;
 using MexxarTaskTracker.Infrastructure.UnitOfWork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -19,6 +21,19 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddScoped<IToDoListService, ToDoListService>();
 builder.Services.AddSignalR();
+
+//For Identity
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
+   o =>
+   {
+       o.Password.RequireDigit = false;
+       o.Password.RequireLowercase = false;
+       o.Password.RequireUppercase = false;
+       o.Password.RequireUppercase = false;
+       o.Password.RequiredLength = 5;
+       o.Password.RequireNonAlphanumeric = false;
+   })
+.AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
 //Adding Authentication
 builder.Services.AddAuthentication(options =>
