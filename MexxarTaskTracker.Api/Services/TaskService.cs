@@ -2,6 +2,7 @@
 using MexxarTaskTracker.Api.Services.Interfaces;
 using MexxarTaskTracker.Domain;
 using MexxarTaskTracker.Infrastructure.UnitOfWork;
+using Microsoft.AspNetCore.SignalR;
 
 namespace MexxarTaskTracker.Api.Services
 {
@@ -9,12 +10,24 @@ namespace MexxarTaskTracker.Api.Services
     {
         private readonly IGenericUnitOfWork _genericUnitOfWork;
         private readonly IMapper _mapper;
+        private readonly IHubContext<NotificationHub> _hubContext;
+
 
         public TaskService(IGenericUnitOfWork genericUnitOfWork,
-            IMapper mapper)
+            IMapper mapper, IHubContext<NotificationHub> hubContext)
         {
             _genericUnitOfWork = genericUnitOfWork;
             _mapper = mapper;
+            _hubContext = hubContext;
+        }
+
+        public async Task SendTaskReminder(long taskId, long userId)
+        {
+            var existingTask = GetTaskById(taskId);
+            if (existingTask != null)
+            {
+                await _hubContext.Clients.User(userId.ToString()).SendAsync("TaskReminder", "This is your new Task = " + existingTask.TaskName + "");
+            }
         }
 
         public object GetAllTasks(int offset, int limit)

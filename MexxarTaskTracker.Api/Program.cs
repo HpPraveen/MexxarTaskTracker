@@ -17,6 +17,7 @@ builder.Services.AddScoped<IGenericUnitOfWork, GenericUnitOfWork>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddScoped<IToDoListService, ToDoListService>();
+builder.Services.AddSignalR();
 
 //Adding Authentication
 builder.Services.AddAuthentication(options =>
