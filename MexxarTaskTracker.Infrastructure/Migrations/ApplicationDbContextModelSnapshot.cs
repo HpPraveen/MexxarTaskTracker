@@ -137,75 +137,15 @@ namespace MexxarTaskTracker.Infrastructure.Migrations
                     b.Property<string>("ToDoListName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("ToDoLists");
-                });
-
-            modelBuilder.Entity("MexxarTaskTracker.Domain.User", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("ApplicationUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Gender")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SysCreatedBy")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<DateTime?>("SysCreatedOn")
-                        .HasMaxLength(128)
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("SysDeletedBy")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<DateTime?>("SysDeletedOn")
-                        .HasMaxLength(128)
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("SysUpdatedBy")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<DateTime?>("SysUpdatedOn")
-                        .HasMaxLength(128)
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("MexxarTaskTracker.Domain.UserTask", b =>
@@ -403,24 +343,13 @@ namespace MexxarTaskTracker.Infrastructure.Migrations
 
             modelBuilder.Entity("MexxarTaskTracker.Domain.ToDoList", b =>
                 {
-                    b.HasOne("MexxarTaskTracker.Domain.User", "User")
+                    b.HasOne("MexxarTaskTracker.Domain.ApplicationUser", "User")
                         .WithMany("ToDoLists")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MexxarTaskTracker.Domain.User", b =>
-                {
-                    b.HasOne("MexxarTaskTracker.Domain.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("MexxarTaskTracker.Domain.UserTask", b =>
@@ -485,14 +414,14 @@ namespace MexxarTaskTracker.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("MexxarTaskTracker.Domain.ApplicationUser", b =>
+                {
+                    b.Navigation("ToDoLists");
+                });
+
             modelBuilder.Entity("MexxarTaskTracker.Domain.ToDoList", b =>
                 {
                     b.Navigation("Tasks");
-                });
-
-            modelBuilder.Entity("MexxarTaskTracker.Domain.User", b =>
-                {
-                    b.Navigation("ToDoLists");
                 });
 #pragma warning restore 612, 618
         }

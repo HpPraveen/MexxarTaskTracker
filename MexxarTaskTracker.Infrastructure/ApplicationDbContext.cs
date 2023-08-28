@@ -17,7 +17,7 @@ namespace MexxarTaskTracker.Infrastructure
         {
             base.OnModelCreating(builder);
             builder.Entity<ApplicationUser>().HasKey(u => u.Id);
-            builder.Entity<User>().HasMany(o => o.ToDoLists).WithOne(td => td.User).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<ApplicationUser>().HasMany(o => o.ToDoLists).WithOne(td => td.User).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<ToDoList>().HasMany(td => td.Tasks).WithOne(t => t.ToDoList).OnDelete(DeleteBehavior.Cascade);
         }
     }

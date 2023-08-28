@@ -6,7 +6,7 @@ namespace MexxarTaskTracker.Api.Services.Interfaces
     {
         object GetAllToDoLists(int offset, int limit);
         object GetToDoListById(long toDoListId);
-        object GetToDoListByUser(long userId);
+        object GetToDoListByUser(string userId);
         object CreateUpdateToDoList(ToDoListDto toDoListDto);
         bool DeleteToDoList(long toDoListId);
     }

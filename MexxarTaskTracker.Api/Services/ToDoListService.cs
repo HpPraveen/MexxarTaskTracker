@@ -31,7 +31,7 @@ namespace MexxarTaskTracker.Api.Services
             return _mapper.Map<ToDoListDto>(toDoListDetails);
         }
 
-        public object GetToDoListByUser(long userId)
+        public object GetToDoListByUser(string userId)
         {
             var userToDoListDetails = _genericUnitOfWork.ToDoListepository.Get(t => t.UserId == userId, includeProperties: "Tasks")
                 .FirstOrDefault();

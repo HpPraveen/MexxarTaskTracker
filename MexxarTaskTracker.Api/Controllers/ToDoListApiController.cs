@@ -63,7 +63,7 @@ namespace MexxarTaskTracker.Api.Controllers
 
         [HttpGet]
         [Route("GetToDoListByUser/{userId}")]
-        public object GetToDoListByUser(int userId)
+        public object GetToDoListByUser(string userId)
         {
             try
             {

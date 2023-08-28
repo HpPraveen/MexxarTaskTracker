@@ -9,5 +9,8 @@ namespace MexxarTaskTracker.Domain
         public Gender Gender { get; set; }
         public string? Email { get; set; }
         public DateTime? SysCreatedOn { get; set; }
+
+        public ICollection<ToDoList> ToDoLists { get; set; }
+
     }
 }

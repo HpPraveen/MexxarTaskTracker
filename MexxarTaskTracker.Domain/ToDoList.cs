@@ -4,12 +4,12 @@ namespace MexxarTaskTracker.Domain
 {
     public class ToDoList : BaseEntity
     {
-        public long UserId { get; set; }
+        public string UserId { get; set; }
         public string? ToDoListName { get; set; }
         public string? ToDoListDescription { get; set; }
         public ICollection<UserTask> Tasks { get; set; }
 
         [ForeignKey("UserId")]
-        public virtual User User { get; set; }
+        public virtual ApplicationUser User { get; set; }
     }
 }
